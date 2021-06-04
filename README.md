@@ -1,5 +1,5 @@
-# kafka-producer-java-hello-world
-A simple Java Kafka producer.
+# kafka-producer-java-hello-world-high-throughput
+A simple Java Kafka high throughput producer.
 
 ## Dependencies (`pom.xml`)
 
@@ -34,6 +34,10 @@ Properties properties = new Properties();
 properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, server);
 properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "20");
+properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32 * 1024));
 
 KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
 ProducerRecord<String, String> record = new ProducerRecord<String,String>(topic, message);
